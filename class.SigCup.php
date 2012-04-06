@@ -171,7 +171,10 @@ class LoadGpsData{
 		//<NodeId> <lat> <long>
 		//0 47.2964240 -122.2445086
 
-		$fp = fopen($filename,"r");
+		if(!$fp = fopen($filename,"r")){
+			echo "ERROR: File '{$filename}' Not Opened.\n";
+			exit;
+		}
 		while(!feof($fp)){
 			$line = fgets($fp);
 			list($NodeId,$lat,$long) = explode(' ',$line);
@@ -193,7 +196,7 @@ class LoadGpsData{
 		array_shift($files);
 		foreach($files as $file){
 			if(!$fp = fopen("{$path}/{$file}","r")){
-				echo "File Not Opened\n";
+				echo "ERROR: File '{$path}/{$file}' Not Opened.\n";
 				exit;
 			}
 			while(!feof($fp)){
@@ -215,7 +218,7 @@ class LoadGpsData{
 		array_shift($files);
 		foreach($files as $file){
 			if(!$fp = fopen("{$path}/{$file}","r")){
-				echo "File Not Opened\n";
+				echo "ERROR: File '{$path}/{$file}' Not Opened.\n";
 				exit;
 			}
 			while(!feof($fp)){
@@ -252,8 +255,14 @@ class LoadGpsData{
 		array_shift($OutputFiles);
 		
 		for($i=0;$i<sizeof($InputFiles);$i++){
-			$fpIn = fopen("{$InPath}/{$InputFiles[$i]}","r");
-			$fpOut = fopen("{$OutPath}/{$OutputFiles[$i]}","r");			
+			if(!$fpIn = fopen("{$InPath}/{$InputFiles[$i]}","r")){
+				echo "ERROR: File '{$InPath}/{$InputFiles[$i]}' Not Opened.\n";
+				exit;
+			}
+			if(!$fpOut = fopen("{$OutPath}/{$OutputFiles[$i]}","r")){
+				echo "ERROR: File '{$OutPath}/{$OutputFiles[$i]}' Not Opened.\n";
+				exit;
+			}
 			while(!feof($fpIn)){
 				$line1 = fgets($fpIn);
 				$line2 = fgets($fpOut);	
