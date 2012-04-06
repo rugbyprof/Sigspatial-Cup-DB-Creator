@@ -1,0 +1,18 @@
+
+Name:    Terry Griffin
+
+Purpose: 
+ 
+Takes all of the files downloaded from Sigspatial Cup and loads them into a MySQL
+database. Has nothing directly to do with a solution, but makes it easy to 
+visualize some of our ideas using "OpenLayers".  The visualization portion is not 
+included.
+
+There's no configuration for paths and such. You can change the code based on where 
+you extracted the files.
+			
+No primary keys or indexes included in the table creation. That's also up to you.
+
+License: MIT
+
+Copyright (c) 2012
