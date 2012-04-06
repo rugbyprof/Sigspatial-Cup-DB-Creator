@@ -46,8 +46,8 @@ class LoadGpsData{
    // @Returns: void
    //-----------------------------------------------------------------	
 	function __construct(){
-		$this->connect = mysql_connect('localhost','youruser','yourpass');
-		$this->db = mysql_select_db('yourdb');
+		$this->connect = mysql_connect('localhost','your user','your pass');
+		$this->db = mysql_select_db('your db');
 	}
 	
    //-----------------------------------------------------------------
@@ -122,7 +122,7 @@ class LoadGpsData{
 		//<EdgeId>^<Name>^<Type>^<Length>^<Lat_1>^<Lon_1>^...^<Lat_n>^<Lon_n>
 		//0^Supermall Way^residential^18.076637118384^47.2964240^-122.2445086^47.2964237^-122.2442696
 
-		$fp = fopen($filename,"r");
+		$fp = fopen($filename,"r") or die("Error: Can't open file: '{$filename}'");
 		while(!feof($fp)){
 			$line = fgets($fp);
 			$values = explode('^',$line);
@@ -148,7 +148,7 @@ class LoadGpsData{
 		//<EdgeId> <from> <to> <cost>
 		//2 0 535410 523
 		
-		$fp = fopen($filename,"r");
+		$fp = fopen($filename,"r") or die("Error: Can't open file: '{$filename}'");
 		while(!feof($fp)){
 			$line = fgets($fp);
 			list($EdgeId,$from,$to,$cost) = explode(' ',$line);
@@ -171,10 +171,7 @@ class LoadGpsData{
 		//<NodeId> <lat> <long>
 		//0 47.2964240 -122.2445086
 
-		if(!$fp = fopen($filename,"r")){
-			echo "ERROR: File '{$filename}' Not Opened.\n";
-			exit;
-		}
+		$fp = fopen($filename,"r") or die("Error: Can't open file: '{$filename}'");
 		while(!feof($fp)){
 			$line = fgets($fp);
 			list($NodeId,$lat,$long) = explode(' ',$line);
@@ -195,10 +192,7 @@ class LoadGpsData{
 		array_shift($files);
 		array_shift($files);
 		foreach($files as $file){
-			if(!$fp = fopen("{$path}/{$file}","r")){
-				echo "ERROR: File '{$path}/{$file}' Not Opened.\n";
-				exit;
-			}
+			$fp = fopen("{$path}/{$file}","r") or die("Error: Can't open file: '{$path}/{$file}'");
 			while(!feof($fp)){
 				$line = fgets($fp);
 				list($time,$lat,$lon) = explode(',',$line);
@@ -217,10 +211,7 @@ class LoadGpsData{
 		array_shift($files);
 		array_shift($files);
 		foreach($files as $file){
-			if(!$fp = fopen("{$path}/{$file}","r")){
-				echo "ERROR: File '{$path}/{$file}' Not Opened.\n";
-				exit;
-			}
+			$fp = fopen("{$path}/{$file}","r") or die("Error: Can't open file: '{$path}/{$file}'");
 			while(!feof($fp)){
 				$line = fgets($fp);
 				list($time,$edgeId,$confidence) = explode(',',$line);
@@ -255,14 +246,8 @@ class LoadGpsData{
 		array_shift($OutputFiles);
 		
 		for($i=0;$i<sizeof($InputFiles);$i++){
-			if(!$fpIn = fopen("{$InPath}/{$InputFiles[$i]}","r")){
-				echo "ERROR: File '{$InPath}/{$InputFiles[$i]}' Not Opened.\n";
-				exit;
-			}
-			if(!$fpOut = fopen("{$OutPath}/{$OutputFiles[$i]}","r")){
-				echo "ERROR: File '{$OutPath}/{$OutputFiles[$i]}' Not Opened.\n";
-				exit;
-			}
+			$fpIn = fopen("{$InPath}/{$InputFiles[$i]}","r") or die("Error: Can't open file: '{$InPath}/{$InputFiles[$i]}'");
+			$fpOut = fopen("{$OutPath}/{$OutputFiles[$i]}","r") or die("Error: Can't open file: '{$InPath}/{$OutputFiles[$i]}'");			
 			while(!feof($fpIn)){
 				$line1 = fgets($fpIn);
 				$line2 = fgets($fpOut);	
